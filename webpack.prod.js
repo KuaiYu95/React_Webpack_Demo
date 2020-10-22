@@ -2,10 +2,11 @@ const { resolve } = require('path')
 const webpack = require('webpack');
 const { merge } = require('webpack-merge');           // 导入 merge 方法
 const commonConfig = require('./webpack.common')    // 导入公共config
+const TerserWebpackPlugin = require('terser-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const TerserWebpackPlugin = require('terser-webpack-plugin')
 const UglifyJsWebpackPlugin = require('uglifyjs-webpack-plugin')
+const AddAssetHtmlWebpackPlugin = require('add-asset-html-webpack-plugin')
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')
 
 const buildPath = resolve(__dirname, 'build')
@@ -55,6 +56,15 @@ const prodConfig = {
       filename: 'css/index.[chunkhash:10].css'
     }),
     new webpack.optimize.ModuleConcatenationPlugin(),
+    // 告诉webpack哪些库不参与打包，同时使用时的名称也得变
+    new webpack.DllReferencePlugin({
+      manifest: resolve(__dirname, 'dll/manifest.json')
+    }),
+    // 将某个文件打包输出去，并在 html 中自动引入该资源
+    new AddAssetHtmlWebpackPlugin({
+      filepath: resolve(__dirname, 'dll/react.js'),
+      publicPath: '../',
+    }),
   ],
 
   /**

@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "rs": "webpack-dev-server --config webpack.dev.js --mode development",
     "dev": "webpack --config webpack.dev.js --mode development",
-    "build": "webpack --config webpack.prod.js --mode production"
+    "build": "npm run dll && webpack --config webpack.prod.js --mode production",
+    "dll": "webpack --config webpack.dll.js --mode production"
   },
   "repository": {
     "type": "git",

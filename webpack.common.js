@@ -1,7 +1,6 @@
 const { resolve } = require('path')
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const AddAssetHtmlWebpackPlugin = require('add-asset-html-webpack-plugin')
 
 const buildPath = resolve(__dirname, 'build')
 const srcPath = resolve(__dirname, 'src')
@@ -133,15 +132,6 @@ module.exports = {
         // removeAttributeQuotes: true,
       }
     }),
-    // 告诉webpack哪些库不参与打包，同时使用时的名称也得变
-    // new webpack.DllReferencePlugin({
-    //   manifest: resolve(__dirname, 'dll/manifest.json')
-    // }),
-    // 将某个文件打包输出去，并在 html 中自动引入该资源
-    // new AddAssetHtmlWebpackPlugin({
-    //   filepath: resolve(__dirname, 'dll/jquery.js'),
-    //   publicPath: './'
-    // }),
   ],
 
   optimization: {
