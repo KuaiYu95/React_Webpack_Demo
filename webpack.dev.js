@@ -3,9 +3,7 @@ const webpack = require('webpack');
 const { merge } = require('webpack-merge');           // 导入 merge 方法
 const commonConfig = require('./webpack.common')    // 导入公共config
 
-
 process.env.NODE_ENV = 'development'
-
 
 const buildPath = resolve(__dirname, 'build')
 const devServer = {
@@ -36,8 +34,8 @@ const devServer = {
   open: true,
   hot: true,
   // quiet: true,
-  // clientLogLevel: 'none',
-  // overlay: false,
+  clientLogLevel: 'none',
+  overlay: false,
   proxy: {
     // 一旦devServer(8080)服务器接收到一个/api/xxx请求，就会把请求转发到另一个服务器
     '/api': {
@@ -73,17 +71,6 @@ const devConfig = {
   module: {
     rules: [
       {
-        test: /\.less$/,
-        use: [	// use 执行顺序 从下往上
-          // 创建 style 标签，将 js 中样式资源插入，添加到 head 中生效
-          'style-loader',
-          // 将 css 文件变成 commonjs 模块加载到 js 中，内容是样式字符串
-          'css-loader',
-          // 将 less 文件变成 css 文件
-          'less-loader'
-        ],
-      },
-      {
         // package.json 中 eslintConfig 中的设置
         test: /\.js$/,
         exclude: /node_modules/,
@@ -95,6 +82,17 @@ const devConfig = {
           fix: true,
         }
       },
+      {
+        test: /\.less$/,
+        use: [	// use 执行顺序 从下往上
+          // 创建 style 标签，将 js 中样式资源插入，添加到 head 中生效
+          'style-loader',
+          // 将 css 文件变成 commonjs 模块加载到 js 中，内容是样式字符串
+          'css-loader',
+          // 将 less 文件变成 css 文件
+          'less-loader'
+        ],
+      },
     ]
   },
 
@@ -105,6 +103,7 @@ const devConfig = {
     // 热更新
     new webpack.HotModuleReplacementPlugin()
   ],
+
 }
 
 module.exports = merge(commonConfig, devConfig)

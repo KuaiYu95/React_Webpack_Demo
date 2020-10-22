@@ -1,9 +1,7 @@
 const { resolve } = require('path')
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')  // css 代码压缩
-const AddAssetHtmlWebpackPlugin = require('add-asset-html-webpack-plugin')  // css 代码压缩
-const TerserWebpackPlugin = require('terser-webpack-plugin')
+const AddAssetHtmlWebpackPlugin = require('add-asset-html-webpack-plugin')
 
 const buildPath = resolve(__dirname, 'build')
 const srcPath = resolve(__dirname, 'src')
@@ -25,9 +23,9 @@ module.exports = {
    * chunkFilename: 问题：js中记录hash值，重写编译之后可能找不到之前的文件，解决：runtimeChunk
    */
   output: {
-    filename: 'index.[contenthash:10].js',
+    filename: process.env.production === 'production' ? 'index.[contenthash:10].js' : 'index.[hash:10].js',
     path: buildPath,
-    // chunkFilename: '[name].[contenthash:10]_chunk.js'
+    chunkFilename: '[name].[contenthash:10]_chunk.js'
   },
 
   module: {
@@ -65,7 +63,8 @@ module.exports = {
                           edge: '17'
                         }
                       }
-                    ]
+                    ],
+                    '@babel/preset-react'
                   ],
                   /**
                    * 开启babel缓存
@@ -143,40 +142,9 @@ module.exports = {
     //   filepath: resolve(__dirname, 'dll/jquery.js'),
     //   publicPath: './'
     // }),
-    // 压缩 css
-    new OptimizeCssAssetsWebpackPlugin()
   ],
 
-  // 可以将 node_modules 中代码单独打包成一个chunk最终输出
-  // 自动分析多入口 chunk 中，有无公共的文件，如果有，打包成一个单独的chunk
   optimization: {
-    splitChunks: {
-      chunks: 'all'
-      /**
-       * 以下配置都是默认值
-       * minSize: 30 * 1024, // 分割的 chunk 最小 30kb
-       *  maxSize: 0,
-       *  minChunks: 1, // 要提取的 chunk 最少被引用一次
-       *  maxAsyncRequests: 5, // 按需加载时并行加载的文件的最大数量
-       *  maxInitialRequests: 3, // 入口js文件最大并行运行数量
-       *  automaticNameDelimiter: '~~', // 名称连字符
-       *  name: true, // 可以使用命名规则
-       *  cacheGroups: {  // 分割chunk的组
-       *    // node_modules文件会被打包到 vendors 组的chunk中  --> vendors~~xxx.js
-       *    vendors: {
-       *      test: /[\\/node_modules[\\/]/,
-       *      // 打包优先级
-       *      priority: -10
-       *    },
-       *    default: {
-       *      minChunks: 2,
-       *      priority: -20, 
-       *      // 如果当前要打包的模块，和之前已经被提取的模块是同一个，就会复用
-       *      reuseExistingChunk: true
-       *    }
-       * }
-        */
-    },
     runtimeChunk: {
       // 将当前模块的记录其他模块的hash单独打包为一个文件
       name: extrypoint => `runtime-${extrypoint.name}`
@@ -190,7 +158,7 @@ module.exports = {
     // 配置解析模块路径别名
     alias: {
       '@utils': resolve(srcPath, 'utils/'),
-      '@iconfont': resolve(srcPath, 'iconfont/'),
+      '@pages': resolve(srcPath, 'pages/'),
       '@images': resolve(srcPath, 'images/'),
     },
     // 告诉webpack 解析模块应该去哪个目录
