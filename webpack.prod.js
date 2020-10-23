@@ -1,13 +1,15 @@
 const { resolve } = require('path')
 const webpack = require('webpack');
-const { merge } = require('webpack-merge');           // 导入 merge 方法
-const commonConfig = require('./webpack.common')    // 导入公共config
 const TerserWebpackPlugin = require('terser-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const UglifyJsWebpackPlugin = require('uglifyjs-webpack-plugin')
 const AddAssetHtmlWebpackPlugin = require('add-asset-html-webpack-plugin')
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')
+
+const { merge } = require('webpack-merge');           // 导入 merge 方法
+const commonConfig = require('./webpack.common')    // 导入公共config
+const themes = require('./themes')
 
 const buildPath = resolve(__dirname, 'build')
 const commonCssLoader = [
@@ -41,7 +43,19 @@ const prodConfig = {
     rules: [
       {
         test: /\.less$/,
-        use: [...commonCssLoader, 'less-loader']
+        use: [
+          ...commonCssLoader,
+          // 将 less 文件变成 css 文件
+          {
+            loader: 'less-loader',
+            options: {
+              lessOptions: {
+                modifyVars: themes,
+                javascriptEnabled: true
+              }
+            }
+          }
+        ],
       },
     ]
   },
@@ -70,7 +84,7 @@ const prodConfig = {
   /**
    * source-map
    */
-  devtool: 'hidden-source-map',
+  devtool: 'cheap-module-source-map',
 
   // 可以将 node_modules 中代码单独打包成一个chunk最终输出
   // 自动分析多入口 chunk 中，有无公共的文件，如果有，打包成一个单独的chunk
@@ -111,6 +125,8 @@ const prodConfig = {
       //   parallel: true,
       // }),
       new UglifyJsWebpackPlugin({
+        // 开启缓存
+        cache: true,
         sourceMap: true,
         parallel: true,  // 启用多线程并行运行提高编译速度
       }),

@@ -2,6 +2,7 @@ const { resolve } = require('path')
 const webpack = require('webpack');
 const { merge } = require('webpack-merge');           // 导入 merge 方法
 const commonConfig = require('./webpack.common')    // 导入公共config
+const themes = require('./themes')  
 
 process.env.NODE_ENV = 'development'
 
@@ -9,8 +10,7 @@ const buildPath = resolve(__dirname, 'build')
 const devServer = {
   /**
    * webpack-dev-server 只会在内存中打包，不会有任何输出
-   * webpack 5 暂不支持 webpack-dev-server 3（执行命令为 npx webpack serve --open true）
-   * 
+   * stats: 精确控制显示哪些捆绑软件信息
    * compress: 开启 gzip 压缩
    * watchContentBase: 监视 contentBase 目录下所有文件，一旦变化就会 reload
    * watchOptions: 监视配置 忽略文件
@@ -23,18 +23,19 @@ const devServer = {
    * overlay: 出现错误不要全屏提示
    * proxy: 代理，解决开发环境跨域问题
    */
+  stats: 'errors-only',
   contentBase: buildPath,
   watchContentBase: true,
   watchOptions: {
     ignored: /node_modules/,
   },
+  historyApiFallback: true,
   compress: true,
   host: 'localhost',
   port: 8080,
-  open: true,
+  open: 'Google Chrome',
   hot: true,
-  // quiet: true,
-  clientLogLevel: 'none',
+  clientLogLevel: 'silent',
   overlay: false,
   proxy: {
     // 一旦devServer(8080)服务器接收到一个/api/xxx请求，就会把请求转发到另一个服务器
@@ -47,6 +48,22 @@ const devServer = {
     }
   }
 }
+const commonCssLoader = [
+  'style-loader',
+  'css-loader',
+  // 需要在 package.json 中定义 browserslist
+  {
+    loader: 'postcss-loader',
+    ident: 'postcss',
+    options: {
+      postcssOptions: {
+        plugins: [
+          ['postcss-preset-env', {}]
+        ]
+      }
+    }
+  }
+]
 
 const devConfig = {
 
@@ -72,7 +89,7 @@ const devConfig = {
     rules: [
       {
         // package.json 中 eslintConfig 中的设置
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         // 优先执行 eslint ，然后执行 babel
         enforce: 'pre',
@@ -85,12 +102,17 @@ const devConfig = {
       {
         test: /\.less$/,
         use: [	// use 执行顺序 从下往上
-          // 创建 style 标签，将 js 中样式资源插入，添加到 head 中生效
-          'style-loader',
-          // 将 css 文件变成 commonjs 模块加载到 js 中，内容是样式字符串
-          'css-loader',
+          ...commonCssLoader,
           // 将 less 文件变成 css 文件
-          'less-loader'
+          {
+            loader: 'less-loader',
+            options: {
+              lessOptions: {
+                modifyVars: themes,
+                javascriptEnabled: true
+              }
+            }
+          }
         ],
       },
     ]

@@ -32,7 +32,11 @@ module.exports = {
       {
         oneOf: [
           {
-            test: /\.js$/,
+            test: /\.css$/,
+            use: ['style-loader', 'css-loader']
+          },
+          {
+            test: /\.(js|jsx)$/,
             exclude: /node_modules/,
             use: [
               // 开启多进程打包
@@ -61,7 +65,8 @@ module.exports = {
                           safari: '10',
                           edge: '17'
                         }
-                      }
+                      },
+                      "react"
                     ],
                     '@babel/preset-react'
                   ],
@@ -69,7 +74,7 @@ module.exports = {
                    * 开启babel缓存
                    * 第二次构建，会读取之前的缓存
                    */
-                  // cacheDirectory: true
+                  cacheDirectory: true
                 }
               }
             ]
@@ -102,7 +107,7 @@ module.exports = {
           },
           {
             // 打包其他资源
-            exclude: /\.(html|js|css|less|jpg|png|gif)$/,
+            exclude: /\.(html|js|jsx|css|less|jpg|png|gif)$/,
             loader: 'file-loader',
             options: {
               name: '[hash:10].[ext]',
@@ -119,7 +124,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './public/index.html',
-      filename: buildPath + '/public/index.html',
+      filename: buildPath + '/index.html',
       /**
        * html 代码压缩
        * @collapseWhitespace: 去除多余空格
@@ -150,6 +155,7 @@ module.exports = {
       '@utils': resolve(srcPath, 'utils/'),
       '@pages': resolve(srcPath, 'pages/'),
       '@images': resolve(srcPath, 'images/'),
+      '@component': resolve(srcPath, 'component/'),
     },
     // 告诉webpack 解析模块应该去哪个目录
     modules: [resolve(__dirname, 'node_modules'), 'node_modules']
