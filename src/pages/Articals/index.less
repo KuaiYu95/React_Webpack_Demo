@@ -1,4 +1,29 @@
 .articals {
-  width: 600px;
-  float: right;
+
+  .artical-item {
+    cursor: pointer;
+    display: flex;
+    color: #fff;
+    align-items: center;
+    justify-content: space-between;
+    height: 30px;
+
+    .left {
+      line-height: 30px;
+      width: 425px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .left:hover {
+      text-decoration: underline;
+    }
+
+    .right {
+      span {
+        margin-left: 10px;
+      }
+    }
+  }
 }

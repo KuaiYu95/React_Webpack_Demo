@@ -7,7 +7,7 @@ const webpack = require('webpack')
 
 module.exports = {
   entry: {
-    react: ['react', 'react-dom', 'react-router-dom', 'axios'],
+    react: ['react', 'react-dom', 'react-router-dom', 'react-markdown'],
   },
   output: {
     filename: '[name].js',

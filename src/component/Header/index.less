@@ -1,6 +1,7 @@
 
 .header {
   position: fixed;
+  z-index: 999;
   top: 0;
   min-width: 100vw;
   height: 30px;
@@ -15,11 +16,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 700px;
+    width: 800px;
   }
 
   .header-nav {
     span, a {
+      cursor: pointer;
       margin-left: 20px;
     }
   }

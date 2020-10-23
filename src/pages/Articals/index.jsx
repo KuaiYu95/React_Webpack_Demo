@@ -13,24 +13,28 @@ class Articals extends Component {
   }
 
   componentDidMount() {
-    api.queryGetBlog({ currentPage: 1, pageSize: 20, searchSort: 0, searchValue: '', searchType: '' }).then(res => {
+    api.queryGetBlog({ currentPage: 1, pageSize: 100, searchSort: 0, searchValue: '', searchType: '' }).then(res => {
       this.setState({ list: res.data.data, totalItems: res.data.totalItems })
     })
   }
 
   render() {
     const { list = [] } = this.state
+    const { handleDetail } = this.props
     return (
       <div className='articals'>
         {list.length > 0 && list.map(item => {
           const { typeIds = [], title, text, likeCount, commentCount, downloadCount, html, lastModifyTime, uploadTime, _id } = item
-          return <div className='artical-item' key={_id}>
-            <div className='title'>{title}</div>
-            {typeIds.map(it => <div>{it}</div>)}
-            <div>{text.slice(0, 200)}</div>
-            <div>{html.slice(0, 200)}</div>
-            <div>{util.time(lastModifyTime)} - {util.time(uploadTime)}</div>
-            <div>{likeCount} {commentCount} {downloadCount}</div>
+          return <div className='artical-item' key={_id} onClick={() => handleDetail(_id)}>
+            <div className='left' title={title}>
+              <span className='time'>【 {util.time(+lastModifyTime, 'YYYY-MM-DD') || util.time(+uploadTime, 'YYYY-MM-DD')} 】</span>
+              <span className='title'>{title}</span>
+            </div>
+            <div className='right'>
+              <span>点赞 {likeCount || 0}</span>
+              <span>评论 {commentCount || 0}</span>
+              <span>下载 {downloadCount || 0}</span>
+            </div>
           </div>
         })}
       </div>

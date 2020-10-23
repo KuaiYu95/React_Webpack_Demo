@@ -4,8 +4,8 @@ const util = {
   currentTime: () => {
     return dayjs().format('YYYY-MM-DD HH:mm:ss')
   },
-  time: t => {
-    return dayjs(t).format('YYYY-MM-DD HH:mm:ss')
+  time: (t, s = 'YYYY-MM-DD HH:mm:ss') => {
+    return dayjs(t).format(s)
   }
 }
 
