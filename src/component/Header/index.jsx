@@ -26,7 +26,11 @@ class Header extends Component {
       <div className='header'>
         <div className='time-line'>
           <div>您好：{adverb}</div>
-          <div>hello world</div>
+          <div className='header-nav'>
+            <span>首页</span>
+            <span>上传</span>
+            <span title='KuaiYu95'>Github</span>
+          </div>
         </div>
       </div>
     )
