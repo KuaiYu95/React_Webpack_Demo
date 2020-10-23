@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import dayjs from 'dayjs';
+import util from '@utils/util';
 import './index.less'
 
 class Header extends Component {
@@ -7,13 +7,13 @@ class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      adverb: dayjs().format('YYYY-MM-DD hh:mm:ss')
+      adverb: util.currentTime()
     }
   }
 
   componentDidMount() {
     this.timeId = setInterval(() => {
-      this.setState({ adverb: dayjs().format('YYYY-MM-DD HH:mm:ss') })
+      this.setState({ adverb: util.currentTime() })
     }, 1000);
   }
 

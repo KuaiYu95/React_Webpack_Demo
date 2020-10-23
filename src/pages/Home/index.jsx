@@ -1,41 +1,24 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Header from '@component/Header';
 import NavSide from '@component/NavSide';
+import Articals from '@pages/Articals';
 import Footer from '@component/Footer';
 import './index.less'
 
-class HomePage extends Component {
+function HomePage(props) {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-
-    }
-  }
-
-
-  componentWillUnmount() {
-
-  }
-
-  handleClick() {
-    console.log('hello world')
-  }
-
-  handleClick2 = () => {
-    console.log('hello world')
-  }
-
-  render() {
-    return (
-      <div className='project-warp'>
-        <Header />
-        <NavSide />
-        <div className="body"></div>
-        <Footer />
+  return (
+    <div className='project-warp'>
+      <Header />
+      <NavSide />
+      <div className="main">
+        <div className="content">
+          <Articals />
+        </div>
       </div>
-    )
-  }
+      <Footer />
+    </div>
+  )
 }
 
 export default HomePage

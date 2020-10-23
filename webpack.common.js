@@ -155,6 +155,7 @@ module.exports = {
       '@utils': resolve(srcPath, 'utils/'),
       '@pages': resolve(srcPath, 'pages/'),
       '@images': resolve(srcPath, 'images/'),
+      '@api': resolve(srcPath, 'api/'),
       '@component': resolve(srcPath, 'component/'),
     },
     // 告诉webpack 解析模块应该去哪个目录

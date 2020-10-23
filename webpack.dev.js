@@ -40,11 +40,11 @@ const devServer = {
   proxy: {
     // 一旦devServer(8080)服务器接收到一个/api/xxx请求，就会把请求转发到另一个服务器
     '/api': {
-      target: 'http://localhost:3000',
+      target: 'http://www.kuaiyu.site',
       // 请求路径改写：/api/xxx ---> /xxx
-      pathRewrite: {
-        '^/api': ''
-      }
+      // pathRewrite: {
+      //   '^/api': ''
+      // }
     }
   }
 }
