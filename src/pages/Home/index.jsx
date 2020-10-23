@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Header from '@component/Header';
-import { Button } from 'antd';
+import NavSide from '@component/NavSide';
+import Footer from '@component/Footer';
 import './index.less'
 
 class HomePage extends Component {
@@ -26,12 +27,12 @@ class HomePage extends Component {
   }
 
   render() {
-    const { adverb } = this.state
     return (
       <div className='project-warp'>
         <Header />
-        <Button onClick={this.handleClick}>hello world</Button>
-        <Button onClick={() => this.handleClick2()}>hello world</Button>
+        <NavSide />
+        <div className="body"></div>
+        <Footer />
       </div>
     )
   }

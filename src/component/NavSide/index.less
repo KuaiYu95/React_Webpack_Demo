@@ -1,0 +1,32 @@
+.nav-side {
+  position: fixed;
+  width: 30px;
+  background-color: #F1840F;
+  top: 50%;
+  transform: translate(0, -50%);
+  right: -25px;
+  font-weight: lighter;
+  border-radius: 4px 0 0 4px;
+  transition: 1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    right: 0;
+    transition: 1s;
+  }
+
+  &-tip {
+    font-size: 12px;
+    padding: 8px 0 0;
+    color: #fff;
+    writing-mode: vertical-lr;
+    letter-spacing: 8px;
+    user-select: none;
+  }
+
+  .nav-side-tip:hover {
+    font-weight: 400;
+  }
+}
