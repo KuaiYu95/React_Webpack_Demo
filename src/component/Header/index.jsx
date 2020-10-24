@@ -26,7 +26,8 @@ class Header extends Component {
     return (
       <div className='header'>
         <div className='time-line'>
-          <div>{adverb}</div>
+          <div className='greet'>{adverb}</div>
+          <div>hello world</div>
           <div className='header-nav'>
             <span onClick={() => this.props.init()}>首页</span>
             <span>上传</span>

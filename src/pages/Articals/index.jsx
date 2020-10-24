@@ -24,16 +24,17 @@ class Articals extends Component {
     return (
       <div className='articals'>
         {list.length > 0 && list.map(item => {
-          const { typeIds = [], title, text, likeCount, commentCount, downloadCount, html, lastModifyTime, uploadTime, _id } = item
+          const { title, likeCount, commentCount, downloadCount, viewCount, lastModifyTime, uploadTime, _id } = item
           return <div className='artical-item' key={_id} onClick={() => handleDetail(_id)}>
             <div className='left' title={title}>
               <span className='time'>【 {util.time(+lastModifyTime, 'YYYY-MM-DD') || util.time(+uploadTime, 'YYYY-MM-DD')} 】</span>
               <span className='title'>{title}</span>
             </div>
             <div className='right'>
-              <span>点赞 {likeCount || 0}</span>
-              <span>评论 {commentCount || 0}</span>
-              <span>下载 {downloadCount || 0}</span>
+              <span title='点赞'>👍 {likeCount || 0}</span>
+              <span title='评论'>💬 {commentCount || 0}</span>
+              <span title='下载'>🦐 {downloadCount || 0}</span>
+              <span title='阅读'>👀 {viewCount || 0}</span>
             </div>
           </div>
         })}

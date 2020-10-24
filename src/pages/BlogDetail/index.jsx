@@ -15,7 +15,7 @@ function Footer(props) {
   }, [])
 
 
-  const { typeIds = [], title, text, likeCount, commentCount, downloadCount, lastModifyTime, uploadTime } = detail
+  const { typeIds = [], title, text, likeCount, viewCount, commentCount, downloadCount, lastModifyTime, uploadTime } = detail
   return (
     <div className='detail'>
       <div className='title'>{title}</div>
@@ -23,7 +23,23 @@ function Footer(props) {
       <div className="types">
         {typeIds.map((type, idx) => <span key={idx}>{type}</span>)}
       </div>
+      <div className='todo'>
+        <div className="like">点赞 <span>{likeCount}</span></div>
+        <div className="comment">评论 <span>{commentCount}</span></div>
+        <div className="download">下载 <span>{downloadCount}</span></div>
+        <div className="view">阅读 <span>{viewCount}</span></div>
+      </div>
       <ReactMarkdown escapeHtml={false} source={text} className='markdown-body' />
+      <div className="time">
+        {lastModifyTime && <div className="last-modify-time">
+          <span>更新时间：</span>
+          {util.time(+lastModifyTime, 'YYYY-MM-DD')}
+        </div>}
+        {uploadTime && <div className="upload-time">
+          <span>上传时间：</span>
+          {util.time(+uploadTime, 'YYYY-MM-DD')}
+        </div>}
+      </div>
     </div>
   )
 }

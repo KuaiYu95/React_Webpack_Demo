@@ -77,7 +77,7 @@ const prodConfig = {
     // 将某个文件打包输出去，并在 html 中自动引入该资源
     new AddAssetHtmlWebpackPlugin({
       filepath: resolve(__dirname, 'dll/react.js'),
-      publicPath: '../',
+      publicPath: './',
     }),
   ],
 
