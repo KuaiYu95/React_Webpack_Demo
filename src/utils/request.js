@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const domain = 'http://localhost:8080'
+const domain = 'http://www.kuaiyu.site'
+// const domain = 'http://localhost:8080'
 export default function request(url = '', requestInfo = {}) {
   const {
     method = 'GET', data = {}

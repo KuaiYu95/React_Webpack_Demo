@@ -1,4 +1,3 @@
-import React from 'react';
 import dayjs from 'dayjs';
 
 const util = {
@@ -7,6 +6,18 @@ const util = {
   },
   time: (t, s = 'YYYY-MM-DD HH:mm:ss') => {
     return dayjs(t).format(s)
+  },
+  query: () => {
+    const queryString = window.location.search.slice(1)
+    const queryUrl = {}
+    if (queryString.includes('=')) {
+      queryString.split('&').forEach(it => {
+        const left = it.split('=')[0]
+        const right = it.split('=')[1]
+        queryUrl[left] = right
+      })
+    }
+    return queryUrl
   },
   showToast: content => {
     var div = document.querySelector('.toast')
