@@ -1,16 +1,18 @@
 .articals {
+  width: 626px;
+  flex-shrink: 0;
 
   .artical-item {
+    height: 30px;
+    line-height: 30px;
     cursor: pointer;
-    display: flex;
     color: #fff;
+    display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 30px;
 
     .left {
-      line-height: 30px;
-      width: 425px;
+      flex-grow: 1;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -25,10 +27,22 @@
     }
 
     .right {
+      flex-shrink: 0;
       span {
         font-family: monospace;
         margin-left: 10px;
       }
     }
+  }
+
+  .pagn {
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    color: #fff;
+    font-weight: normal;
+    margin-top: 24px;
   }
 }

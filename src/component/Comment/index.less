@@ -1,0 +1,47 @@
+#comment {
+  padding-top: 24px;
+  border-top: 5px solid #343C3A;
+
+  .submit {
+    margin-bottom: 24px;
+
+    textarea {
+      width: calc(~'100% - 16px');
+      padding: 8px;
+    }
+
+    div {
+      text-align: right;
+      cursor: pointer;
+    }
+  }
+
+  .item {
+    padding: 4px 16px 0;
+    margin-bottom: 4px;
+    border-left: 5px solid #343C3A;
+
+    .comment-time {
+      font-size: 12px;
+      font-family: monospace;
+      margin-bottom: 8px;
+    }
+
+    .comment-content {
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+
+      .comment-text {
+        white-space: pre-wrap;
+      }
+
+      .comment-like {
+        cursor: pointer;
+        width: 30px;
+        margin-left: 12px;
+        flex-shrink: 0;
+      }
+    }
+  }
+}

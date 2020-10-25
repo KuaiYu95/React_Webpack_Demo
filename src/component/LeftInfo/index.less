@@ -1,5 +1,5 @@
 .left-info {
-  width: 228px;
+  flex-shrink: 0;
   position: fixed;
   top: 30px;
 
@@ -10,18 +10,16 @@
   }
 
   .left-nav {
-    width: 228px;
-    height: 228px;
-    border-radius: 50% 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    background: linear-gradient(to bottom, #F1B30E 0%, #EC6B0D 100%);
+    border-radius: 0 0 24px 24px;
+    background-color: #242424;
   
     .nav-item {
       color: #666;
       cursor: pointer;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      border-bottom: 1px solid #343C3A;
   
       &:last-child {
         border: none;

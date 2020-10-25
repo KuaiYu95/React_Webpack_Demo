@@ -14,10 +14,10 @@ function HomePage(props) {
 
   const selectComponents = {
     'blog': <Articals handleDetail={blogId => setBlogId(blogId)} />,
-    'diary': <div>无</div>,
-    'tour': <div>无</div>,
-    'plan': <div>无</div>,
-    'collect': <div>无</div>,
+    'diary': <div className='loading'>敬请期待</div>,
+    'tour': <div className='loading'>敬请期待</div>,
+    'plan': <div className='loading'>敬请期待</div>,
+    'collect': <div className='loading'>敬请期待</div>,
   }
 
   const init = () => {
@@ -31,7 +31,9 @@ function HomePage(props) {
       <NavSide />
       <div className="main">
         {!blogId ? <div className="content">
-          <LeftInfo leftNav={leftNav} handleLeftNav={leftNav => setLeftNav(leftNav)} />
+          <div className='left-nav'>
+            <LeftInfo leftNav={leftNav} handleLeftNav={leftNav => setLeftNav(leftNav)} />
+          </div>
           <div className='body'>
             {selectComponents[leftNav]}
           </div>
