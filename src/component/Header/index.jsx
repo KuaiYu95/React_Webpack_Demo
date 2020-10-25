@@ -30,7 +30,7 @@ class Header extends Component {
           <div>hello world</div>
           <div className='header-nav'>
             <span onClick={() => this.props.init()}>首页</span>
-            <span>上传</span>
+            <span onClick={() => util.showToast('没有权限！')}>上传</span>
             <a title='KuaiYu95' href="https://github.com/KuaiYu95">Github</a>
           </div>
         </div>
