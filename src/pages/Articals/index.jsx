@@ -9,7 +9,7 @@ class Articals extends Component {
     super(props);
     this.state = {
       currentPage: 1,
-      pageSize: 22,
+      pageSize: 999,
       searchSort: 0,
       searchValue: '',
       searchType: '',
@@ -26,9 +26,10 @@ class Articals extends Component {
   getData() {
     const { currentPage, pageSize, searchSort, searchValue, searchType } = this.state
     api.queryGetBlog({ currentPage, pageSize, searchSort, searchValue, searchType }).then(res => {
+      util.success('数据已经给大佬加载好了，请查阅')
       this.setState({ list: res.data.data, totalItems: res.data.totalItems, loading: false })
     }).catch(() => {
-      util.showToast('网络异常，请稍后再试')
+      util.error('网络异常，请稍后再试')
     })
   }
 

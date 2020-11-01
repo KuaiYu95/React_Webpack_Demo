@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import TopModal from '@component/TopModal/index';
 import api from '@api/index';
 import util from '@utils/util';
 import './index.less'
@@ -40,7 +41,7 @@ class Header extends Component {
         }
         reader.readAsText(file);
       } else {
-        util.showToast('仅支持上传 markdown 文件！')
+        util.warning('仅支持上传 markdown 文件！')
       }
     }
   }
@@ -51,7 +52,7 @@ class Header extends Component {
 
   handleCancel = () => {
     this.setState({ title: '' })
-    util.showToast('已取消')
+    util.error('已取消')
   }
 
   submit = () => {
@@ -64,19 +65,20 @@ class Header extends Component {
     const viewCount = 0
     const typeIds = types.replace(/[ ]/g, "").replace(/，/g, ",").split(',')
     if (typeIds.length === 0) {
-      util.showToast('未给上传文件添加标签！')
+      util.warning('未给上传文件添加标签！')
     } else {
       api.queryAddBlog({ title, text, typeIds, uploadTime, lastModifyTime, commentCount, likeCount, downloadCount, viewCount }).then(res => {
+        util.success('先定一个小目标，每天一篇小博客')
         this.setState({ title: '', text: '', types: '' })
       }).catch(() => {
-        util.showToast('网络异常，请稍后再试')
+        util.error('网络异常，请稍后再试')
       })
     }
   }
 
   render() {
     const { adverb, title, types } = this.state
-    const { edit } = this.query
+    const { ky } = this.query
     return (
       <div className='header'>
         <div className='time-line'>
@@ -84,26 +86,21 @@ class Header extends Component {
           <div>hello world</div>
           <div className='header-nav'>
             <span onClick={() => this.props.init()}>首页</span>
-            {edit === '1' ? <label htmlFor={"up"}>
+            {ky === '1' ? <label htmlFor={"up"}>
               <span>上传</span>
               <input style={{ display: 'none' }} id="up" type="file" onChange={this.getFile} />
-            </label> : <span onClick={() => util.showToast('没有权限！')}>上传</span>}
+            </label> : <span onClick={() => util.error('没有权限！')}>上传</span>}
             <a title='KuaiYu95' href="https://github.com/KuaiYu95">Github</a>
           </div>
         </div>
-        {title && <div className='window-modal'>
-          <div className='upload-file'>
-            <div>文件：{title}.md</div>
-            <div className='types'>
-              <span>标签：</span>
-              <input value={types} onChange={e => this.handleTypes(e)} />
-            </div>
-            <div className="submit">
-              <span className='cancel' onClick={() => this.handleCancel()}>取消</span>
-              <span onClick={() => this.submit()}>上传</span>
-            </div>
-          </div>
-        </div>}
+        {title && <TopModal 
+          way='upload'
+          title={title}
+          types={types}
+          handleTypes={this.handleTypes}
+          handleCancel={this.handleCancel}
+          submit={this.submit}
+        />}
       </div>
     )
   }

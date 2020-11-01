@@ -19,13 +19,23 @@ const util = {
     }
     return queryUrl
   },
-  showToast: content => {
+  showToast: (type, content) => {
     var div = document.querySelector('.toast')
     div.innerHTML = content
+    div.classList.add(type)
     div.classList.add('show-toast')
     setTimeout(() => {
       div.classList.remove('show-toast')
     }, 2000);
+  },
+  error: function(content) {
+    this.showToast('error', content)
+  },
+  success: function(content) {
+    this.showToast('success', content)
+  },
+  warning: function(content) {
+    this.showToast('warning', content)
   },
   download: (title, text) => {
     const element = document.createElement('a');

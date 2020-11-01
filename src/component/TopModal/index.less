@@ -1,0 +1,42 @@
+
+
+  .oprate-file {
+    position: fixed;
+    padding: 24px;
+    width: 400px;
+    font-weight: normal;
+    z-index: 4;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    border: 1px solid #fff;
+    background-color: #343C3A;
+    >* {
+      margin-bottom: 16px;
+    }
+
+    .types {
+      display: flex;
+
+      span {
+        flex-shrink: 0;
+      }
+
+      input {
+        padding: 4px;
+        width: calc(~'100% - 8px');
+        flex-grow: 1;
+      }
+    }
+
+    .submit {
+      margin-top: 24px;
+      font-size: 14px;
+      text-align: right;
+
+      .cancel {
+        margin-right: 24px;
+      }
+    }
+  }

@@ -20,7 +20,7 @@ a {
     color: #fff;
 }
 
-#show {
+#htmlshow {
     position: relative;
 
     .toast {
@@ -29,7 +29,6 @@ a {
         z-index: 1000;
         left: 50%;
         transform: translate(-50%, 0);
-        background-color: #EB0404;
         min-width: 150px;
         height: 30px;
         text-align: center;
@@ -40,11 +39,24 @@ a {
         color: #fff;
         font-weight: bold;
     }
+    
+    .error {
+        background-color: #F60708;
+    }
+
+    .success {
+        background-color: #72C62B;
+    }
+
+    .warning {
+        background-color: #F3E287;
+    }
 
     .show-toast {
         top: 0px;
         transition: top 1s;
     }
+
 }
 
 .loading {
@@ -62,4 +74,21 @@ a {
     bottom: 0;
     left: 0;
     right: 0;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.btn {
+    font-size: 14px;
+    border-radius: 8px;
+    padding: 4px 10px;
+    box-sizing: border-box;
+    border: 1px solid #fff;
+    cursor: pointer;
+    color: #fff;
+
+    &:hover {
+        background-color: #fff;
+        color: #343C3A;
+    }
 }
